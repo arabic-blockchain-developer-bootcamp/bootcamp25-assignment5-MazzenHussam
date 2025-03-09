@@ -2,6 +2,16 @@
 pragma solidity ^0.8.0;
 
 contract Assignment5 {
+uint public counter;
+bool public isActive;
+mapping(address => string) public userNames;
+struct User {
+        uint id;
+        string name;
+        address userAddress;
+    }
+User[] public users;
+
     // 1. Declare a public unsigned integer variable called `counter`
 
     // 2. Declare a public boolean variable called `isActive`
@@ -15,6 +25,7 @@ contract Assignment5 {
     // Constructor
     // Initialize `isActive` to true
     constructor() {
+        isActive = true;
         // Fill in the logic
 
     }
@@ -23,7 +34,10 @@ contract Assignment5 {
     // This function should:
     // - Be external
     // - Use a for loop to increment `counter` by 1 for 5 iterations
-    function incrementCounter() {
+    function incrementCounter() external{
+        for (uint256 i = 0; i < 5; i++) {
+            counter += 1;
+            }
         // Fill in the logic
       
     }
@@ -32,7 +46,13 @@ contract Assignment5 {
     // This function should:
     // - Be public
     // - Use an if statement to toggle `isActive` between true and false
-    function toggleActive() {
+    function toggleActive() public {
+       
+        if (isActive == true) {
+            isActive = false;
+            } else {
+                isActive = true;
+                }
         // Fill in the logic
         
     }
@@ -45,7 +65,15 @@ contract Assignment5 {
         // The memory keyword will be explained later
     // - Add a new user to the `users` array
     // - Update the `userNames` mapping with the address and name
-    function addUser() {
+
+
+    function addUser(uint id, string memory name, address userAddress) public {
+    
+    User memory newUser = User(id, name, userAddress);
+    users.push(newUser);
+    userNames[userAddress] = name;    
+
+
         // Fill in the logic
 
         // Hint: you have to use the keyword `memory` to define the struct
@@ -58,8 +86,10 @@ contract Assignment5 {
     // This function should:
     // - Be public and view
     // - Return the length of the `users` array
-    function getUserCount() {
-        // Fill in the logic
 
+    function getUserCount() public view returns (uint) {
+        // Fill in the logic
+    return users.length;
     }
+
 }
